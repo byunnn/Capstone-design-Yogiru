@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradienta"
+    tools:context=".StoreActivity">
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="357dp"
+        android:layout_height="653dp"
+        android:background="@drawable/item_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <TextView-->
+<!--        android:id="@+id/textViewNickname"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="65dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:textSize="20sp"-->
+<!--        android:text="닉네임"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/nickname"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/frameLayout"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/frameLayout" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/nickname"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_marginTop="65dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_weight="2"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/frameLayout"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textViewNickname"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/frameLayout" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewRefrigName"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:textSize="20sp"-->
+<!--        android:text="냉장고 이름"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/nickname"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/frameLayout"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewNickname" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/refrigName"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_weight="2"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/frameLayout"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textViewNickname"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/nickname" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textConnectedDevice"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:textSize="20sp"-->
+<!--        android:text="연동된 기기 수"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/connectedDevice"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/frameLayout"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewRefrigName"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/connectedDevice"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:textSize="20sp"-->
+<!--        android:text="2"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/dae"-->
+<!--        app:layout_constraintStart_tEndOf="@+id/textConnectedDevice"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/refrigName"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"/>-->
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/dae"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:textSize="20sp"-->
+<!--        android:text="대"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/frameLayout"-->
+<!--        app:layout_constraintStart_tEndOf="@+id/connectedDevice"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/refrigName"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"/>-->
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+carrot
+banana
+apple
+potato
+onion
+paprika
+cucumber
