@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AppDevelopment/restructversion/app/src/main/res/drawable/list_item_background_gradienta.xml" value="0.151" />
+        <entry key="..\:/AppDevelopment/restructversion/app/src/main/res/layout/activity_item.xml" value="0.1544943820224719" />
+        <entry key="..\:/AppDevelopment/restructversion/app/src/main/res/layout/activity_main.xml" value="0.14114583333333333" />
+        <entry key="..\:/AppDevelopment/restructversion/app/src/main/res/layout/swipe_test.xml" value="0.33" />
+        <entry key="..\:/AppDevelopment/restructversion/app/src/main/res/layout/test.xml" value="0.20364583333333333" />
         <entry key="..\:/Programming/AppDevelopment/restructversion/app/src/main/res/layout/activity_item.xml" value="0.1" />
         <entry key="..\:/Programming/AppDevelopment/restructversion/app/src/main/res/layout/activity_main.xml" value="0.3046875" />
         <entry key="..\:/Programming/AppDevelopment/restructversion/app/src/main/res/layout/activity_register_food.xml" value="0.3046875" />
@@ -33,7 +38,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_14" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

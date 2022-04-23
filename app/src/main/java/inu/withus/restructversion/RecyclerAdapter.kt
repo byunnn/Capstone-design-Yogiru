@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import inu.withus.restructversion.FoodData
@@ -38,12 +39,15 @@ class RecyclerAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
         notifyDataSetChanged()
     }
 
+
+
     //ViewHolder : 목록의 개별 항목 레이아웃을 포함하는 View 래퍼로, 각 목록 레이아웃에 필요한 기능들을 구현하는 공간
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val foodName: TextView = itemView.findViewById(R.id.item_foodName)
         private val expireDate: TextView = itemView.findViewById(R.id.item_expireDate)
         private val quantity: TextView = itemView.findViewById(R.id.item_quantity)
+        val swipe_view: LinearLayout = itemView.findViewById(R.id.swipe_view)
 
         fun bind(item: FoodData) {
             foodName.text = item.foodName

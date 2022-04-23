@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.navigation.NavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -72,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         val slidePanel = binding.slidingLayout
         val location = binding.location
         val quantity = binding.quantity
+
 
 
         //냉장, 냉동, 실온 버튼 클릭 시 리스트 출력
@@ -144,15 +146,21 @@ class MainActivity : AppCompatActivity() {
                 initRecyclerData(location.text, "foodName")
             }
         }
+
+
+        val swipeHelperCallback = SwipeHelperCallback()
+        val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
+
 
 
     //recyclerview 초기 설정
     private fun initRecyclerview() {
         recyclerAdaper = RecyclerAdapter(this)
-        recyclerAdaper.replaceList(datas)
         binding.recyclerView.adapter = recyclerAdaper
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerAdaper.replaceList(datas)
     }
 
     // recyclerview data 설정
@@ -187,7 +195,7 @@ class MainActivity : AppCompatActivity() {
         val date = Date()
         val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale("ko", "KR"))
         val endDate = dateFormat.parse(expirationDate).time
-        Log.d(ContentValues.TAG, "endendendendnendnend :::::::::::::$endDate")
+        Log.d(ContentValues.TAG, "end Date :::::::::::::$endDate")
 //        val calendar = Calendar.getInstance()
 //        calendar.setTime(date)
 
@@ -197,9 +205,10 @@ class MainActivity : AppCompatActivity() {
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }.time.time
-//        val dDay = (today - endDate)/ (60 * 60 * 24 * 1000)
         val dDay = (endDate - today)/ (60 * 60 * 24 * 1000)
-        Log.d(ContentValues.TAG, "endendendendnendnend :::::::::::::$dDay")
+//        if(dDay <0)
+//            binding2.day.text = "D +"
+        Log.d(ContentValues.TAG, "d-day ::::::::::::: $dDay")
         return dDay.toString()
 
 
