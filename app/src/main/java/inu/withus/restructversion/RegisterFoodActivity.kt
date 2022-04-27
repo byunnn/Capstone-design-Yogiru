@@ -14,9 +14,10 @@ import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import inu.withus.cameraintegration.dto.FoodInfoDTO
 import inu.withus.restructversion.databinding.ActivityRegisterFoodBinding
 import inu.withus.restructversion.databinding.StandardExpirationdateBinding
+import inu.withus.restructversion.dto.FoodInfoDTO
+import inu.withus.restructversion.dto.InfoListDTO
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
@@ -31,6 +32,7 @@ class RegisterFoodActivity : AppCompatActivity() {
     var auth : FirebaseAuth? = null
     var firestore : FirebaseFirestore? = null
     private var place : String = "냉장"
+    private var searchExist = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,39 +146,58 @@ class RegisterFoodActivity : AppCompatActivity() {
 
 
 
+        // 식품 등록 버튼 클릭
         binding.register.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+
+            //places >> count >> count_fridge|count_frozen|count_room
+            // 현재 냉장, 냉동, 실온에 저장되어 있는 count수 가져오기?
             val count = firestore?.collection("places")!!.document("count")
+            Log.d("TAG","This is count : $count" )
             var foodInfoDTO = FoodInfoDTO()
-            foodInfoDTO.place = place
-            Log.d(ContentValues.TAG, "place = " + foodInfoDTO.place)
-            foodInfoDTO.foodName = name.text.toString()
-            Log.d(ContentValues.TAG, "name = " + foodInfoDTO.foodName)
-            foodInfoDTO.expirationDate = result.text.toString()
-            Log.d(ContentValues.TAG, "date = " + foodInfoDTO.expirationDate)
-            foodInfoDTO.count = binding.InputCount.text.toString().toInt()
-            Log.d(ContentValues.TAG, "count = " + foodInfoDTO.count)
-            foodInfoDTO.memo = binding.InputMemo.text.toString()
-            Log.d(ContentValues.TAG, "memo = " + foodInfoDTO.memo)
-            firestore?.collection(place)?.document(foodInfoDTO.foodName!!)?.set(foodInfoDTO)
-                ?.addOnSuccessListener {
-                    when (place) {
-                        "냉장" -> {
-                            count.update("count_fridge", FieldValue.increment(1))
-                            Log.d(ContentValues.TAG, "냉장 db 성공")
-                        }
-                        "냉동" -> {
-                            count.update("count_frozen", FieldValue.increment(1))
-                            Log.d(ContentValues.TAG, "냉동 db 성공")
-                        }
-                        "실온" -> {
-                            count.update("count_room", FieldValue.increment(1))
-                            Log.d(ContentValues.TAG, "실온 db 성공")
+            var infoListDTO = InfoListDTO()
+
+
+            // 이미 db에 식품이 존재하는지 확인
+            val doc = firestore?.collection(place)!!.document(name.text.toString()).path
+            Log.d("TAG", "path : $doc")
+            Log.d("TAG", "path : ${doc.substring(3)}")
+            if(doc.substring(3) == name.text.toString()) {
+                searchExist = searchExist(result, name.text.toString(), place, infoListDTO)
+                Log.d(ContentValues.TAG, "1 : $searchExist")
+            }
+
+
+            Log.d(ContentValues.TAG, "searchExist2 : $searchExist")
+            if (!searchExist) {
+                foodInfoDTO.place = place
+                Log.d(ContentValues.TAG, "place = " + foodInfoDTO.place)
+                foodInfoDTO.foodName = name.text.toString()
+                Log.d(ContentValues.TAG, "name = " + foodInfoDTO.foodName)
+                foodInfoDTO.expirationDate = listOf(result.text.toString())
+                foodInfoDTO.count = listOf(binding.InputCount.text.toString().toInt())
+                foodInfoDTO.memo = listOf(binding.InputMemo.text.toString())
+
+                firestore?.collection(place)?.document(foodInfoDTO.foodName!!)?.set(foodInfoDTO)
+                    ?.addOnSuccessListener {
+                        when (place) {
+                            "냉장" -> {
+                                count.update("count_fridge", FieldValue.increment(1))
+                                Log.d(ContentValues.TAG, "냉장 db 성공")
+                            }
+                            "냉동" -> {
+                                count.update("count_frozen", FieldValue.increment(1))
+                                Log.d(ContentValues.TAG, "냉동 db 성공")
+                            }
+                            "실온" -> {
+                                count.update("count_room", FieldValue.increment(1))
+                                Log.d(ContentValues.TAG, "실온 db 성공")
+                            }
                         }
                     }
-                    Toast.makeText(this, "저장 완료", Toast.LENGTH_LONG).show()
-                    startActivity(intent)
-                }
+            }
+            Toast.makeText(this, "저장 완료", Toast.LENGTH_LONG).show()
+            startActivity(intent)
         }
 
         binding.cancel.setOnClickListener {
@@ -185,6 +206,27 @@ class RegisterFoodActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    // 이미 DB에 존재하는 식품일 경우
+    private fun searchExist(
+        result: TextView,
+        foodName: String,
+        place: String,
+        infoListDTO: InfoListDTO
+    ): Boolean {
+        infoListDTO.expireDate = result.text.toString()
+        infoListDTO.count = binding.InputCount.text.toString().toInt()
+        infoListDTO.memo = binding.InputMemo.text.toString()
+
+        Log.d("TAG", "searchExist들어왔음")
+        val document = firestore?.collection(place)!!.document(foodName)
+        document.update("expireDate", FieldValue.arrayUnion(infoListDTO.expireDate))
+        document.update("count", FieldValue.arrayUnion(infoListDTO.count))
+        document.update("memo", FieldValue.arrayUnion(infoListDTO.memo))
+
+        return true
+    }
+
 
     override fun onStop() {
         super.onStop()

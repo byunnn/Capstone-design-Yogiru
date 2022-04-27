@@ -352,13 +352,6 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/sortByDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="날짜순" />
-
-            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/sortByAlphabet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -366,10 +359,21 @@
                 android:text="가나다순"/>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/sortByCount"
+                android:id="@+id/sortByDateAsc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="개수순"/>
+                android:layout_marginRight="10dp"
+                android:text="날짜-ASC" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sortByDateDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="날짜-DESC"/>
+
+
+
+
 
         </LinearLayout>
 

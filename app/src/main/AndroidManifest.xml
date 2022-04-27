@@ -40,6 +40,7 @@
         <activity android:name=".RegisterFoodActivity"></activity>
         <activity android:name=".LivePreviewActivity"></activity>
         <activity android:name=".DetectorActivity"></activity>
+        <activity android:name=".inu.withus.restructversion.FoodDetailActivity"></activity>
 
     </application>
 

@@ -1,9 +1,12 @@
-package inu.withus.cameraintegration.dto
+package inu.withus.restructversion.dto
 
+import android.os.Parcelable
 import com.google.firebase.database.IgnoreExtraProperties
 import com.google.firebase.database.annotations.NotNull
+import kotlinx.parcelize.Parcelize
 
 @IgnoreExtraProperties
+@Parcelize
 data class FoodInfoDTO(
     @NotNull
     var place : String? = null,
@@ -12,10 +15,10 @@ data class FoodInfoDTO(
     var foodName : String? = null,
 
     @NotNull
-    var expirationDate : String? = null,
+    var expirationDate : List<String>? = null,
 
     @NotNull
-    var count : Int? = null,
+    var count : List<Int>? = null,
 
-    var memo : String? = null
-)
+    var memo : List<String>? = null
+):Parcelable

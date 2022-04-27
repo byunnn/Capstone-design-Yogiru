@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'com.google.gms.google-services'
     id 'de.undercouch.download'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -45,6 +46,9 @@ android {
     aaptOptions {
         noCompress "tflite"
     }
+
+
+
 }
 
 // import DownloadModels task
