@@ -185,26 +185,28 @@ class MainActivity : AppCompatActivity() {
         // DB에서 식품 리스트를 가지고 오는 부분
         Log.d(ContentValues.TAG, "들어옴!")
 
-        val docRef = firestore?.collection("냉장").document("가지")
-        docRef.get().addOnSuccessListener { documentSnapshot ->
-            removeAllData()
+//        val docRef = firestore?.collection("냉장").document("가지")
+//        docRef.get().addOnSuccessListener { documentSnapshot ->
+//            removeAllData()
+//
+//            val testData = documentSnapshot.toObject<FoodInfoDTO>()!!
+//            Log.d("TAG", "data : $testData")
+//            datas.add(testData)
+//            Log.d("TAG", "Data : $datas")
+//        }
 
-            //        firestore?.collection("냉장")
-//            .orderBy(sort, option)
-//            .get()
-//            .addOnSuccessListener { documents ->
-//                removeAllData()
-//                for (document in documents) {
-//                    val city = document.toObject<FoodInfoDTO>()
-//                    Log.d("TAG", "data : $city")
-//                }
-//            }
+        firestore?.collection("냉장")
+            .orderBy(sort, option)
+            .get()
+            .addOnSuccessListener { documents ->
+                removeAllData()
+                for (document in documents) {
+                    val testData = document.toObject<FoodInfoDTO>()!!
+                    Log.d("TAG", "second data : $testData")
+                    datas.add(testData)
 
-            val testData = documentSnapshot.toObject<FoodInfoDTO>()!!
-            Log.d("TAG", "data : $testData")
-            datas.add(testData)
-            Log.d("TAG", "Data : $datas")
-        }
+                }
+            }
 
         initRecyclerview()
     }

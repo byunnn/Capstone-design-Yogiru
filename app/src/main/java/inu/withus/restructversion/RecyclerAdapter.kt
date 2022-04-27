@@ -60,11 +60,13 @@ class RecyclerAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
 
         fun bind(item: FoodInfoDTO) {
             foodName.text = item.foodName
-            val dday = dDayCount(item.expirationDate!!.get(0))
-            if(dday<0)
+            var dday = dDayCount(item.expireDate!!.get(0))
+            if(dday<0) {
+                dday = -dday
                 expireDate.text = "+${dday.toString()}"
+            }
             else
-                expireDate.text = dday.toString()
+                expireDate.text = "-${dday.toString()}"
             quantity.text = item.count?.get(0).toString()
 
             itemView.setOnClickListener {
@@ -94,10 +96,10 @@ class RecyclerAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
         }
     }
 
-    private fun dDayCount(expirationDate : String) : Long{
+    private fun dDayCount(expireDate : String) : Long{
         val date = Date()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale("ko", "KR"))
-        val endDate = dateFormat.parse(expirationDate).time
+        val endDate = dateFormat.parse(expireDate).time
         Log.d(ContentValues.TAG, "end :::::::::::::$endDate")
 //        val calendar = Calendar.getInstance()
 //        calendar.setTime(date)

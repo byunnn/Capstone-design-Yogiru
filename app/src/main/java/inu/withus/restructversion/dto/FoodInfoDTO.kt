@@ -15,7 +15,7 @@ data class FoodInfoDTO(
     var foodName : String? = null,
 
     @NotNull
-    var expirationDate : List<String>? = null,
+    var expireDate : List<String>? = null,
 
     @NotNull
     var count : List<Int>? = null,

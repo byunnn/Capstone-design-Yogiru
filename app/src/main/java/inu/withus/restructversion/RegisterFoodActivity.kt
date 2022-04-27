@@ -174,7 +174,7 @@ class RegisterFoodActivity : AppCompatActivity() {
                 Log.d(ContentValues.TAG, "place = " + foodInfoDTO.place)
                 foodInfoDTO.foodName = name.text.toString()
                 Log.d(ContentValues.TAG, "name = " + foodInfoDTO.foodName)
-                foodInfoDTO.expirationDate = listOf(result.text.toString())
+                foodInfoDTO.expireDate = listOf(result.text.toString())
                 foodInfoDTO.count = listOf(binding.InputCount.text.toString().toInt())
                 foodInfoDTO.memo = listOf(binding.InputMemo.text.toString())
 
