@@ -122,7 +122,7 @@ class RegisterFoodActivity : AppCompatActivity() {
 
         //유통기한 가져오기 및 저장
         val date = Date()
-        val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale("ko", "KR"))
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale("ko", "KR"))
         val calendar = Calendar.getInstance()
         calendar.setTime(date)
         when(resultName){

@@ -1,13 +1,11 @@
 package inu.withus.restructversion
 
 import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -15,7 +13,6 @@ import com.google.firebase.firestore.ktx.toObject
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import inu.withus.restructversion.databinding.ActivityMainBinding
 import inu.withus.restructversion.dto.FoodInfoDTO
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -72,13 +69,13 @@ class MainActivity : AppCompatActivity() {
 
         val slidePanel = binding.slidingLayout
         val location = binding.location
-        val quantity = binding.quantity
+        val count = binding.count
 
 
         //냉장, 냉동, 실온 버튼 클릭 시 리스트 출력
         binding.fridge.setOnClickListener{
             location.text = "냉장"
-            quantity.text = binding.itemCount1.text
+            count.text = binding.itemCount1.text
             initRecyclerData(location.text, "expireDate")
             if (slidePanel.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
                 slidePanel.anchorPoint = 0.7f
@@ -87,28 +84,27 @@ class MainActivity : AppCompatActivity() {
 
             binding.sortByAlphabet.setOnClickListener{
                 location.text = "냉장"
-                quantity.text = binding.itemCount3.text
+                count.text = binding.itemCount3.text
                 initRecyclerData(location.text, "foodName")
             }
 
             binding.sortByDateAsc.setOnClickListener{
                 location.text = "냉장"
-                quantity.text = binding.itemCount3.text
+                count.text = binding.itemCount3.text
                 initRecyclerData(location.text, "expireDate" )
             }
 
             binding.sortByDateDesc.setOnClickListener{
                 location.text = "냉장"
-                quantity.text = binding.itemCount3.text
+                count.text = binding.itemCount3.text
                 initRecyclerData(location.text, "expireDate", Query.Direction.DESCENDING)
             }
-
         }
 
 
         binding.frozen.setOnClickListener{
             location.text = "냉동"
-            quantity.text = binding.itemCount2.text
+            count.text = binding.itemCount2.text
             initRecyclerData(location.text, "expireDate")
             if (slidePanel.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
                 slidePanel.anchorPoint = 0.7f
@@ -117,28 +113,26 @@ class MainActivity : AppCompatActivity() {
 
             binding.sortByAlphabet.setOnClickListener{
                 location.text = "냉동"
-                quantity.text = binding.itemCount3.text
+                count.text = binding.itemCount3.text
                 initRecyclerData(location.text, "foodName")
             }
 
             binding.sortByDateAsc.setOnClickListener{
                 location.text = "냉동"
-                quantity.text = binding.itemCount3.text
+                count.text = binding.itemCount3.text
                 initRecyclerData(location.text, "expireDate")
             }
 
             binding.sortByDateDesc.setOnClickListener{
                 location.text = "냉동"
-                quantity.text = binding.itemCount3.text
+                count.text = binding.itemCount3.text
                 initRecyclerData(location.text, "expireDate", Query.Direction.DESCENDING)
             }
-
-
         }
 
         binding.room.setOnClickListener{
             location.text = "실온"
-            quantity.text = binding.itemCount3.text
+            count.text = binding.itemCount3.text
             initRecyclerData(location.text, "expireDate")
             if (slidePanel.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
                 slidePanel.anchorPoint = 0.7f
@@ -147,23 +141,21 @@ class MainActivity : AppCompatActivity() {
 
             binding.sortByAlphabet.setOnClickListener{
                 location.text = "실온"
-                quantity.text = binding.itemCount3.text
+                count.text = binding.itemCount3.text
                 initRecyclerData(location.text, "foodName")
             }
 
             binding.sortByDateAsc.setOnClickListener{
                 location.text = "실온"
-                quantity.text = binding.itemCount3.text
+                count.text = binding.itemCount3.text
                 initRecyclerData(location.text, "expireDate")
             }
 
             binding.sortByDateDesc.setOnClickListener{
                 location.text = "실온"
-                quantity.text = binding.itemCount3.text
+                count.text = binding.itemCount3.text
                 initRecyclerData(location.text, "expireDate", Query.Direction.DESCENDING)
             }
-
-
         }
     }
 
@@ -175,8 +167,6 @@ class MainActivity : AppCompatActivity() {
         Log.d("TAG", "init recyclerview as $datas")
         binding.recyclerView.adapter = recyclerAdaper
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-
-
     }
 
 
@@ -185,7 +175,20 @@ class MainActivity : AppCompatActivity() {
         // DB에서 식품 리스트를 가지고 오는 부분
         Log.d(ContentValues.TAG, "들어옴!")
 
-//        val docRef = firestore?.collection("냉장").document("가지")
+        firestore?.collection(location.toString())
+            .orderBy(sort, option)
+            .get()
+            .addOnSuccessListener { documents ->
+                removeAllData()
+                for (document in documents) {
+                    val testData = document.toObject<FoodInfoDTO>()!!
+                    Log.d("TAG", "check datas : $testData")
+                    datas.add(testData)
+                }
+            }
+        initRecyclerview()
+
+        //        val docRef = firestore?.collection("냉장").document("가지")
 //        docRef.get().addOnSuccessListener { documentSnapshot ->
 //            removeAllData()
 //
@@ -194,21 +197,6 @@ class MainActivity : AppCompatActivity() {
 //            datas.add(testData)
 //            Log.d("TAG", "Data : $datas")
 //        }
-
-        firestore?.collection("냉장")
-            .orderBy(sort, option)
-            .get()
-            .addOnSuccessListener { documents ->
-                removeAllData()
-                for (document in documents) {
-                    val testData = document.toObject<FoodInfoDTO>()!!
-                    Log.d("TAG", "second data : $testData")
-                    datas.add(testData)
-
-                }
-            }
-
-        initRecyclerview()
     }
 
 
