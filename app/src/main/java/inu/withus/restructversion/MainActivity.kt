@@ -84,19 +84,19 @@ class MainActivity : AppCompatActivity() {
 
             binding.sortByAlphabet.setOnClickListener{
                 location.text = "냉장"
-                count.text = binding.itemCount3.text
+                count.text = binding.itemCount1.text
                 initRecyclerData(location.text, "foodName")
             }
 
             binding.sortByDateAsc.setOnClickListener{
                 location.text = "냉장"
-                count.text = binding.itemCount3.text
+                count.text = binding.itemCount1.text
                 initRecyclerData(location.text, "expireDate" )
             }
 
             binding.sortByDateDesc.setOnClickListener{
                 location.text = "냉장"
-                count.text = binding.itemCount3.text
+                count.text = binding.itemCount1.text
                 initRecyclerData(location.text, "expireDate", Query.Direction.DESCENDING)
             }
         }
@@ -113,19 +113,19 @@ class MainActivity : AppCompatActivity() {
 
             binding.sortByAlphabet.setOnClickListener{
                 location.text = "냉동"
-                count.text = binding.itemCount3.text
+                count.text = binding.itemCount2.text
                 initRecyclerData(location.text, "foodName")
             }
 
             binding.sortByDateAsc.setOnClickListener{
                 location.text = "냉동"
-                count.text = binding.itemCount3.text
+                count.text = binding.itemCount2.text
                 initRecyclerData(location.text, "expireDate")
             }
 
             binding.sortByDateDesc.setOnClickListener{
                 location.text = "냉동"
-                count.text = binding.itemCount3.text
+                count.text = binding.itemCount2.text
                 initRecyclerData(location.text, "expireDate", Query.Direction.DESCENDING)
             }
         }

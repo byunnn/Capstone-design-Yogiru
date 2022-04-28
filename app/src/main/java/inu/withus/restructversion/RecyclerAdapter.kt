@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import inu.withus.restructversion.databinding.ActivityItemBinding
 import inu.withus.restructversion.dto.FoodInfoDTO
-import inu.withus.restructversion.inu.withus.restructversion.FoodDetailActivity
+import inu.withus.restructversion.FoodDetailActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
