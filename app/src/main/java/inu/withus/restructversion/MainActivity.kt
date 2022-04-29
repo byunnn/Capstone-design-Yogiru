@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     lateinit var recyclerAdaper: RecyclerAdapter
-//    private val datas = mutableListOf<FoodData>()
     private val datas = mutableListOf<FoodInfoDTO>()
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
@@ -188,14 +187,10 @@ class MainActivity : AppCompatActivity() {
             }
         initRecyclerview()
 
-        //        val docRef = firestore?.collection("냉장").document("가지")
+//        val docRef = firestore?.collection("냉장").document("가지")
 //        docRef.get().addOnSuccessListener { documentSnapshot ->
-//            removeAllData()
-//
 //            val testData = documentSnapshot.toObject<FoodInfoDTO>()!!
-//            Log.d("TAG", "data : $testData")
 //            datas.add(testData)
-//            Log.d("TAG", "Data : $datas")
 //        }
     }
 

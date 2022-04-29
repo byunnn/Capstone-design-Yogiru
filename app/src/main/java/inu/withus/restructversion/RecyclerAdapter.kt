@@ -28,15 +28,14 @@ class RecyclerAdapter(private val context: Context) : RecyclerView.Adapter<Recyc
         return ViewHolder(view)
     }
 
-
-    //getItemCount : 몇 개의 목록을 만들지를 반환
-    override fun getItemCount(): Int = datas.size
-
-
     //onBindViewHolder : 생성된 뷰(껍데기)에 무슨 데이터를 넣을 것인가
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
     }
+
+    //getItemCount : 몇 개의 목록을 만들지를 반환
+    override fun getItemCount(): Int = datas.size
+
 
     fun replaceList(newList: MutableList<FoodInfoDTO>) {
         datas = newList.toMutableList()

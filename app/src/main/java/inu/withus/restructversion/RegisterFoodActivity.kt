@@ -19,8 +19,6 @@ import inu.withus.restructversion.databinding.StandardExpirationdateBinding
 import inu.withus.restructversion.dto.FoodInfoDTO
 import inu.withus.restructversion.dto.InfoListDTO
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.ZoneId
 import java.util.*
 
 class RegisterFoodActivity : AppCompatActivity() {
@@ -104,6 +102,8 @@ class RegisterFoodActivity : AppCompatActivity() {
         //식품 이름 가져오기 및 저장
         val name : TextView = findViewById(R.id.InputfoodName)
         var resultName = intent.getStringExtra("foodName")
+
+        // 만약 이름이 아래의 영문에 해당한다면 한글로 바꾸기
         when(resultName){
             "apple" -> resultName =  "사과"
             "banana" -> resultName =  "바나나"
@@ -116,33 +116,44 @@ class RegisterFoodActivity : AppCompatActivity() {
         name.text = resultName
 
         Log.d(ContentValues.TAG, "RegisterFoodActivity_date에 들어옴!")
-        val result : TextView = findViewById(R.id.InputexpireDate)
-        var resultExpireDate = intent.getStringExtra("expireDate")
+        val viewDate : TextView = findViewById(R.id.InputexpireDate)
 
+        lateinit var resultExpireDate : String
 
-        //유통기한 가져오기 및 저장
-        val date = Date()
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale("ko", "KR"))
-        val calendar = Calendar.getInstance()
-        calendar.setTime(date)
-        when(resultName){
-            "사과" -> {calendar.add(Calendar.DATE, 14)}
-            "바나나" -> {calendar.add(Calendar.DATE, 7)}
-            "당근" -> {calendar.add(Calendar.DATE, 14)}
-            "감자" -> {calendar.add(Calendar.DATE, 30)}
-            "오이" -> {calendar.add(Calendar.DATE, 4)}
-            "파프리카" -> {calendar.add(Calendar.DATE, 21)}
-            "양파" -> {calendar.add(Calendar.DATE, 7)}
+        if(resultName!=null){
+
+            if(resultName in ingredents)
+                resultExpireDate =  returnExpireDate(resultName!!)
+            else
+                resultExpireDate = intent.getStringExtra("expireDate")!!
+            viewDate.text = resultExpireDate
 
         }
-        val time = calendar.time
-        val formatTime = dateFormat.format(time)
-        resultExpireDate = formatTime
 
-        Log.d(ContentValues.TAG, "내일 날짜 ::::::::::::: $formatTime")
-        Log.d(ContentValues.TAG, "내일 날짜 ::::::::::::: ${formatTime.javaClass.name}")
 
-        result.text = resultExpireDate
+
+//        //유통기한 가져오기 및 저장
+//        val date = Date()
+//        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale("ko", "KR"))
+//        val calendar = Calendar.getInstance()
+//        calendar.setTime(date)
+//        when(resultName){
+//            "사과" -> {calendar.add(Calendar.DATE, 14)}
+//            "바나나" -> {calendar.add(Calendar.DATE, 7)}
+//            "당근" -> {calendar.add(Calendar.DATE, 14)}
+//            "감자" -> {calendar.add(Calendar.DATE, 30)}
+//            "오이" -> {calendar.add(Calendar.DATE, 4)}
+//            "파프리카" -> {calendar.add(Calendar.DATE, 21)}
+//            "양파" -> {calendar.add(Calendar.DATE, 7)}
+//            else -> resultExpireDate = intent.getStringExtra("expireDate")
+//
+//        }
+//        val time = calendar.time
+//        val formatTime = dateFormat.format(time)
+//        resultExpireDate = formatTime
+
+
+
 
 
 
@@ -163,7 +174,7 @@ class RegisterFoodActivity : AppCompatActivity() {
             Log.d("TAG", "path : $doc")
             Log.d("TAG", "path : ${doc.substring(3)}")
             if(doc.substring(3) == name.text.toString()) {
-                searchExist = searchExist(result, name.text.toString(), place, infoListDTO)
+                searchExist = searchExist(viewDate, name.text.toString(), place, infoListDTO)
                 Log.d(ContentValues.TAG, "1 : $searchExist")
             }
 
@@ -174,7 +185,7 @@ class RegisterFoodActivity : AppCompatActivity() {
                 Log.d(ContentValues.TAG, "place = " + foodInfoDTO.place)
                 foodInfoDTO.foodName = name.text.toString()
                 Log.d(ContentValues.TAG, "name = " + foodInfoDTO.foodName)
-                foodInfoDTO.expireDate = listOf(result.text.toString())
+                foodInfoDTO.expireDate = listOf(viewDate.text.toString())
                 foodInfoDTO.count = listOf(binding.InputCount.text.toString().toInt())
                 foodInfoDTO.memo = listOf(binding.InputMemo.text.toString())
 
@@ -206,6 +217,31 @@ class RegisterFoodActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    private fun returnExpireDate(resultName : String) : String{
+        val date = Date()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale("ko", "KR"))
+        val calendar = Calendar.getInstance()
+        calendar.setTime(date)
+        when(resultName){
+            "사과" -> {calendar.add(Calendar.DATE, 14)}
+            "바나나" -> {calendar.add(Calendar.DATE, 7)}
+            "당근" -> {calendar.add(Calendar.DATE, 14)}
+            "감자" -> {calendar.add(Calendar.DATE, 30)}
+            "오이" -> {calendar.add(Calendar.DATE, 4)}
+            "파프리카" -> {calendar.add(Calendar.DATE, 21)}
+            "양파" -> {calendar.add(Calendar.DATE, 7)}
+
+        }
+        val time = calendar.time
+        val formatTime = dateFormat.format(time)
+        val resultExpireDate : String = formatTime
+
+        return resultExpireDate
+
+
+    }
+
 
     // 이미 DB에 존재하는 식품일 경우
     private fun searchExist(
